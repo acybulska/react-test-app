@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import UserOutput from './UserOutput/UserOutput';
+import UserInput from './UserInput/UserInput';
 
 class App extends Component {
   state = {
@@ -9,7 +11,8 @@ class App extends Component {
       { id: 1, name: "Manu", age: 29 },
       { id: 2, name: "Lisa", age: 24 }
     ],
-    showPersons: false
+    showPersons: false,
+    userName: "the Hulk"
   }
 
   nameChangedHandler = (event, id) => {
@@ -36,6 +39,14 @@ class App extends Component {
     this.setState({ persons: persons });
   }
 
+  userNameHandler = () => {
+    this.setState({ userName: "STAN LEE" })
+  }
+
+  createAHero = (event) => {
+    this.setState({ userName: event.target.value })
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -44,6 +55,7 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
+
     let persons = null;
 
     if (this.state.showPersons) {
@@ -62,8 +74,11 @@ class App extends Component {
     }
     return (
       <div>
-        <h1>Hello world</h1>
-        <button style={style} onClick={this.togglePersonsHander}>Show people</button>
+        <h1>Hero Management</h1>
+        <button onClick={this.userNameHandler}>Set hero</button>
+        <UserOutput userName={this.state.userName} />
+        <UserInput changed={this.createAHero} />
+        <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
         {persons}
       </div>
     );
