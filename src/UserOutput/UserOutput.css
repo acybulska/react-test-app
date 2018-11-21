@@ -1,0 +1,15 @@
+.UserOutput {
+    margin: auto;
+    padding: 10px;
+}
+
+.Loki {
+    color: #017D1A;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.Hero {
+    color: crimson;
+    font-weight: 900;
+}

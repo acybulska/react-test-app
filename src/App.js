@@ -56,6 +56,12 @@ class App extends Component {
       cursor: 'pointer'
     }
 
+    const userInputStyle = {
+      border: '1px solid red',
+      backgroundColor: 'orange',
+      margin: '20px'
+    }
+
     let persons = null;
 
     if (this.state.showPersons) {
@@ -76,8 +82,8 @@ class App extends Component {
       <div>
         <h1>Hero Management</h1>
         <button onClick={this.userNameHandler}>Set hero</button>
+        <UserInput style={userInputStyle} changed={this.createAHero} />
         <UserOutput userName={this.state.userName} />
-        <UserInput changed={this.createAHero} />
         <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
         {persons}
       </div>
