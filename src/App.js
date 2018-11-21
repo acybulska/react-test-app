@@ -55,9 +55,10 @@ class App extends Component {
   }
 
   removeChar = (charId) => {
-    const chars = [...this.state.assignment];
+    const chars = this.state.userInput.split('');
     chars.splice(charId, 1);
-    this.setState({ assignment: chars });
+    const newChars = chars.join('');
+    this.setState({ userInput: newChars });
   }
 
   render() {
@@ -77,7 +78,6 @@ class App extends Component {
     }
 
     let persons = null;
-    let chars = null;
 
     if (this.state.showPersons) {
       persons = (
@@ -94,9 +94,12 @@ class App extends Component {
       )
     }
 
-    chars = (
-      <div>NOT DONE YET</div>
-    )
+    let charList = this.state.userInput.split('').map((ch, i) => {
+      return <Char
+        character={ch}
+        key={i}
+        click={() => this.removeChar(i)} />
+    })
 
     return (
       <div className="App" >
@@ -111,7 +114,7 @@ class App extends Component {
           <input onChange={this.assignmentTwoTask} />
           <p>Text length: {this.state.userInput.length}</p>
           <Validation length={this.state.userInput.length}></Validation>
-          {chars}
+          {charList}
         </div>
         <div>
           <h2>People</h2>

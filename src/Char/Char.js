@@ -1,10 +1,10 @@
 import React from 'react';
 import './Char.css';
 
-const charComponent = (props) => {
+const char = (props) => {
     return (
-        <div className="CharComponent">{ props.preview }</div>
+        <div className="Char" onClick={props.click}>{ props.character }</div>
     )
 }
 
-export default charComponent;
+export default char;
