@@ -3,6 +3,8 @@ import './App.css';
 import Person from './Person/Person';
 import UserOutput from './UserOutput/UserOutput';
 import UserInput from './UserInput/UserInput';
+import Validation from './Validation/Validation';
+import Char from './Char/Char';
 
 class App extends Component {
   state = {
@@ -12,7 +14,8 @@ class App extends Component {
       { id: 2, name: "Lisa", age: 24 }
     ],
     showPersons: false,
-    userName: "the Hulk"
+    userName: "the Hulk",
+    userInput: ""
   }
 
   nameChangedHandler = (event, id) => {
@@ -47,6 +50,16 @@ class App extends Component {
     this.setState({ userName: event.target.value })
   }
 
+  assignmentTwoTask = (event) => {
+    this.setState({ userInput: event.target.value })
+  }
+
+  removeChar = (charId) => {
+    const chars = [...this.state.assignment];
+    chars.splice(charId, 1);
+    this.setState({ assignment: chars });
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -59,10 +72,12 @@ class App extends Component {
     const userInputStyle = {
       border: '1px solid red',
       backgroundColor: 'orange',
-      margin: '20px'
+      padding: '5px',
+      margin: '5px'
     }
 
     let persons = null;
+    let chars = null;
 
     if (this.state.showPersons) {
       persons = (
@@ -78,14 +93,31 @@ class App extends Component {
         </div>
       )
     }
+
+    chars = (
+      <div>NOT DONE YET</div>
+    )
+
     return (
-      <div>
-        <h1>Hero Management</h1>
-        <button onClick={this.userNameHandler}>Set hero</button>
-        <UserInput style={userInputStyle} changed={this.createAHero} />
-        <UserOutput userName={this.state.userName} />
-        <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
-        {persons}
+      <div className="App" >
+        <h1>Hello world</h1>
+        <div className="Assignment1">
+          <h2>Hero Management</h2>
+          <button style={style} onClick={this.userNameHandler}>Set hero</button>
+          <UserInput style={userInputStyle} changed={this.createAHero} />
+          <UserOutput userName={this.state.userName} />
+        </div>
+        <div className="Assignment2">
+          <input onChange={this.assignmentTwoTask} />
+          <p>Text length: {this.state.userInput.length}</p>
+          <Validation length={this.state.userInput.length}></Validation>
+          {chars}
+        </div>
+        <div>
+          <h2>People</h2>
+          <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
+          {persons}
+        </div>
       </div>
     );
   }
