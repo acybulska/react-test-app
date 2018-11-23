@@ -68,10 +68,7 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'lightgreen'
-      }
+      cursor: 'pointer'
     }
 
     const userInputStyle = {
@@ -97,7 +94,6 @@ class App extends Component {
         </div>
       );
       style.backgroundColor = "red";
-      style[':hover'] = { backgroundColor: 'salmon' };
     }
 
     let charList = this.state.userInput.split('').map((ch, i) => {
