@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 import UserOutput from './UserOutput/UserOutput';
 import UserInput from './UserInput/UserInput';
@@ -67,7 +68,10 @@ class App extends Component {
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen'
+      }
     }
 
     const userInputStyle = {
@@ -91,7 +95,9 @@ class App extends Component {
               click={() => this.deletePersonHandler(index)} />
           })}
         </div>
-      )
+      );
+      style.backgroundColor = "red";
+      style[':hover'] = { backgroundColor: 'salmon' };
     }
 
     let charList = this.state.userInput.split('').map((ch, i) => {
@@ -101,29 +107,41 @@ class App extends Component {
         click={() => this.removeChar(i)} />
     })
 
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
     return (
-      <div className="App" >
-        <h1>Hello world</h1>
-        <div className="Assignment1">
-          <h2>Hero Management</h2>
-          <button style={style} onClick={this.userNameHandler}>Set hero</button>
-          <UserInput style={userInputStyle} changed={this.createAHero} />
-          <UserOutput userName={this.state.userName} />
+      <StyleRoot>
+        <div className="App" >
+
+          <div>
+            <h2>People</h2>
+            <p className={classes.join(' ')}>Test paragraph</p>
+            <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
+            {persons}
+          </div>
+
+          <div className="Assignment1">
+            <h2>A1</h2>
+            <button onClick={this.userNameHandler}>Set hero</button>
+            <UserInput style={userInputStyle} changed={this.createAHero} />
+            <UserOutput userName={this.state.userName} />
+          </div>
+          <div className="Assignment2">
+            <h2>A2</h2>
+            <input onChange={this.assignmentTwoTask} />
+            <p>Text length: {this.state.userInput.length}</p>
+            <Validation length={this.state.userInput.length}></Validation>
+            {charList}
+          </div>
         </div>
-        <div className="Assignment2">
-          <input onChange={this.assignmentTwoTask} />
-          <p>Text length: {this.state.userInput.length}</p>
-          <Validation length={this.state.userInput.length}></Validation>
-          {charList}
-        </div>
-        <div>
-          <h2>People</h2>
-          <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
-          {persons}
-        </div>
-      </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
