@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.css';
 import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 import UserOutput from './UserOutput/UserOutput';
@@ -63,21 +63,7 @@ class App extends Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-    }
-
-    const userInputStyle = {
-      border: '1px solid red',
-      backgroundColor: 'orange',
-      padding: '5px',
-      margin: '5px'
-    }
-
+    let btnClass = "";
     let persons = null;
 
     if (this.state.showPersons) {
@@ -93,7 +79,7 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor = "red";
+      btnClass = styles.Red
     }
 
     let charList = this.state.userInput.split('').map((ch, i) => {
@@ -105,29 +91,29 @@ class App extends Component {
 
     let classes = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      classes.push(styles.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      classes.push(styles.bold);
     }
     return (
       <StyleRoot>
-        <div className="App" >
+        <div className={styles.App} >
 
           <div>
             <h2>People</h2>
             <p className={classes.join(' ')}>Test paragraph</p>
-            <button style={style} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
+            <button className={btnClass} onClick={(event) => this.togglePersonsHander(event)}>Show people</button>
             {persons}
           </div>
 
-          <div className="Assignment1">
+          <div className={styles.Assignment1}>
             <h2>A1</h2>
             <button onClick={this.userNameHandler}>Set hero</button>
-            <UserInput style={userInputStyle} changed={this.createAHero} />
+            <UserInput changed={this.createAHero} />
             <UserOutput userName={this.state.userName} />
           </div>
-          <div className="Assignment2">
+          <div className={styles.Assignment2}>
             <h2>A2</h2>
             <input onChange={this.assignmentTwoTask} />
             <p>Text length: {this.state.userInput.length}</p>
